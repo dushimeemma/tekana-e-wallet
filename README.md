@@ -17,6 +17,14 @@ $ yarn | $ npm install | $ pnpm install
 ## Running the application
 
 ```
+# environment variables
+$ touch .env.dev && cp .env.example .env.dev
+# provide your environment variables
+
+# docker
+$ touch docker.env && cp docker.env.example docker.env
+$ docker-compose up
+
 # development
 $ yarn start | $ npm run start | $ pnpm run start
 
