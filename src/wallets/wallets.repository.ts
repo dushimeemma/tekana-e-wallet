@@ -12,30 +12,12 @@ export class WalletsRepository extends Repository<Wallet> {
   /**
    *  Check balance repository
    */
-  async checkBalance(user: User): Promise<Wallet | any> {
+  async checkBalance(user: User): Promise<Wallet> {
     const query = await this.createQueryBuilder('wallet');
     query.where({ user });
     query.orderBy('created_at', 'DESC');
-    let balance = await query.getOne();
-    if (balance) {
-      return balance;
-    } else {
-      /**
-       *  Providing dummy balance for a user who didn't save
-       *  Bad practice but i did it because of time
-       *  It will be updated soon
-       */
-      balance = {
-        id: user.id,
-        balance: 0,
-        amount: 0,
-        created_at: user.created_at,
-        updated_at: user.updated_at,
-        user,
-      };
-      delete balance.user;
-      return balance;
-    }
+    const balance = await query.getOne();
+    return balance;
   }
   /**
    *  Deposing amount into wallets repository
