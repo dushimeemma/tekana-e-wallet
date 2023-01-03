@@ -1,30 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { configValidationSchema } from 'src/config.schema';
+import { RouterModule } from '@nestjs/core';
 import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: [`.env.${process.env.NODE_ENV}`],
-      validationSchema: configValidationSchema,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        autoLoadEntities: true,
-        synchronize: true,
-        //  entities: [],
-      }),
-    }),
+    DatabaseModule,
+    AuthModule,
+    RouterModule.register([
+      {
+        path: 'api',
+        module: AuthModule,
+      },
+    ]),
   ],
   controllers: [AppController],
 })
