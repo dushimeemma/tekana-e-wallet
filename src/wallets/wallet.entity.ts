@@ -1,24 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Wallet } from 'src/wallets/wallet.entity';
+import { Exclude } from 'class-transformer';
+import { User } from '../auth/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Wallet {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column()
+  balance: number;
 
   @Column()
-  password: string;
+  amount: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -26,6 +27,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany((_type) => Wallet, (wallet) => wallet.user, { eager: true })
-  wallets: Wallet[];
+  @ManyToOne((_type) => User, (user) => user.wallets, { eager: false })
+  @Exclude({ toPlainOnly: true })
+  user: User;
 }
