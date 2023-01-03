@@ -39,16 +39,29 @@ $ yarn start:dev | $ npm run start:dev | $ pnpm run start:dev
 ## Endpoints & Models
 
 ```
-# /api/auth/signup
+# send POST request on /api/auth/signup using the below model to sign
 {
     "email": "sample@valid.email",
     "password": "Valid@Password#"
 }
-# /api/auth/login
+
+# send POST request on /api/auth/login using the below model to login
 {
     "email": "sample@valid.email",
     "password": "Valid@Password#"
 }
+
+# login, copy token and paste into the authorization bearer token
+# send POST request on /api/wallets/save using the below model to save
+{
+    "amount": 500
+}
+
+# login, copy token and paste into the authorization bearer token
+# send GET request on /api/wallets/balance using the below model to check balance
+
+# login, copy token and paste into the authorization bearer token
+# send GET request on /api/wallets/balance using the below model to view history
 ```
 
 ## Author
