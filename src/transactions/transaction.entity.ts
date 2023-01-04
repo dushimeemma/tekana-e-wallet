@@ -11,18 +11,12 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Wallet {
+export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  balance: number;
-
-  @Column()
   amount: number;
-
-  @Column()
-  reason: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -32,5 +26,9 @@ export class Wallet {
 
   @ManyToOne((_type) => User, (user) => user.wallets, { eager: false })
   @Exclude({ toPlainOnly: true })
-  user: User;
+  sender: User;
+
+  @ManyToOne((_type) => User, (user) => user.wallets, { eager: false })
+  @Exclude({ toPlainOnly: true })
+  receiver: User;
 }

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Wallet } from 'src/wallets/wallet.entity';
+import { Transaction } from '../transactions/transaction.entity';
+import { Wallet } from '../wallets/wallet.entity';
 import {
   Column,
   CreateDateColumn,
@@ -28,4 +29,11 @@ export class User {
 
   @OneToMany((_type) => Wallet, (wallet) => wallet.user, { eager: true })
   wallets: Wallet[];
+
+  @OneToMany(
+    (_type) => Transaction,
+    (transction) => transction.receiver || transction.sender,
+    { eager: true },
+  )
+  transactions: Transaction[];
 }

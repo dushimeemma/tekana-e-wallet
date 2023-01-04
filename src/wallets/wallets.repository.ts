@@ -3,6 +3,7 @@ import { User } from '../auth/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import { WalletDto } from './dto/wallet.dto';
 import { Wallet } from './wallet.entity';
+import { WalletType } from './enums/balance.enum';
 
 @Injectable()
 export class WalletsRepository extends Repository<Wallet> {
@@ -22,14 +23,23 @@ export class WalletsRepository extends Repository<Wallet> {
   /**
    *  Deposing amount into wallets repository
    */
-  async createWallet(user: User, walletDto: WalletDto): Promise<Wallet> {
+  async createWallet(
+    user: User,
+    walletDto: WalletDto,
+    walletType: WalletType,
+    reason: string,
+  ): Promise<Wallet> {
     const { amount } = walletDto;
     const query = await this.createQueryBuilder('wallet');
     query.where({ user });
     query.orderBy('created_at', 'DESC');
     const currentWallet = await this.checkBalance(user);
-    const balance = currentWallet.balance + amount;
-    const wallet = this.create({ amount, balance, user });
+    // update balance due to Wallet Type
+    const balance =
+      walletType === WalletType.SENT_TRANSACTION
+        ? currentWallet.balance - amount
+        : currentWallet.balance + amount;
+    const wallet = this.create({ amount, balance, user, reason });
     try {
       await this.save(wallet);
     } catch (error) {

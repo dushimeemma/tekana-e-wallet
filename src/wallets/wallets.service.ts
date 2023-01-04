@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../auth/user.entity';
 import { WalletDto } from './dto/wallet.dto';
+import { WalletType } from './enums/balance.enum';
 import { WalletResponseInterface } from './interfaces/wallet.response.interface';
 import { WalletsRepository } from './wallets.repository';
 
@@ -22,7 +23,12 @@ export class WalletsService {
     return {
       success: true,
       message: 'amount saved successfully',
-      data: await this.walletsRepository.createWallet(user, walletDto),
+      data: await this.walletsRepository.createWallet(
+        user,
+        walletDto,
+        WalletType.BALANCE,
+        'loaded balance',
+      ),
     };
   }
   /**
