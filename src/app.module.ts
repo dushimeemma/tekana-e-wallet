@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -12,11 +13,12 @@ import { TransactionsModule } from './transactions/transactions.module';
     AuthModule,
     WalletsModule,
     TransactionsModule,
+    UsersModule,
     RouterModule.register([
       {
         path: 'api',
         module: AuthModule,
-        children: [WalletsModule, TransactionsModule],
+        children: [WalletsModule, TransactionsModule, UsersModule],
       },
     ]),
   ],
