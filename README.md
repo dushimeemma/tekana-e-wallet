@@ -1,5 +1,18 @@
 # TEKANA E WALLET
 
+## Strategy
+
+```
+- I have chosen agile methodology to get this technical evaluation done
+- Steps:
+ i. Planned the project and created the development road map.
+ ii. Breaked down the features and planned MVP release.
+ iii. Planned each feature's sprint.
+ iv. Daily self evaluation regarding the feature(s) that I have worked on.[more like scrum meeting]
+ v. After getting the feature done, I raise the PR and look for a dev around for review, and it get merged after working on all the reviews.
+ vi. Challenge myself with what goes well or wrong [more like retrospective meeting]
+```
+
 ## Prerequisites
 
 ```
@@ -39,7 +52,7 @@ $ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 ## Endpoints & Models
 
 ```
-# send POST request on /api/auth/signup using the below model to sign
+# send POST request on /api/auth/signup using the below model to create an account
 {
     "email": "sample@valid.email",
     "password": "Valid@Password#"
@@ -58,10 +71,13 @@ $ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 }
 
 # login, copy token and paste into the authorization bearer token
-# send GET request on /api/wallets/balance using the below model to check balance
+# send GET request on /api/wallets/balance to check balance
 
 # login, copy token and paste into the authorization bearer token
-# send GET request on /api/wallets using the below model to view history
+# send GET request on /api/wallets to view history
+
+# login, copy token and paste into the authorization bearer token
+# send GET request on /api/users to get the list of all users
 
 # login, copy token and paste into the authorization bearer token
 # send POST request on /api/transactions/send-money using the below model to send money
@@ -78,7 +94,7 @@ $ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 }
 
 # login, copy token and paste into the authorization bearer token
-# send GET request on /api/transactions using the below model to view history
+# send GET request on /api/transactions to view history
 ```
 
 ## Author
