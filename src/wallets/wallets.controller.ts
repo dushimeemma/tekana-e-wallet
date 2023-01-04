@@ -37,7 +37,7 @@ export class WalletsController {
   /**
    *  Balance history endpoint
    */
-  @Get('/history')
+  @Get('/')
   history(@GetUser() user: User): Promise<WalletResponseInterface> {
     return this.walletsService.history(user);
   }

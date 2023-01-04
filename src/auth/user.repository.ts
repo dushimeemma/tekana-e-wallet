@@ -43,6 +43,7 @@ export class UserRepository extends Repository<User> {
       amount: 0,
       balance: 0,
       user: createdUser,
+      reason: 'initial balance',
     });
     await this.walletsRepository.save(wallet);
     // removing user password before return statement

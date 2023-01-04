@@ -61,7 +61,24 @@ $ yarn start:dev | $ npm run start:dev | $ pnpm run start:dev
 # send GET request on /api/wallets/balance using the below model to check balance
 
 # login, copy token and paste into the authorization bearer token
-# send GET request on /api/wallets/balance using the below model to view history
+# send GET request on /api/wallets using the below model to view history
+
+# login, copy token and paste into the authorization bearer token
+# send POST request on /api/transactions/send-money using the below model to send money
+# make sure that the receiver is the id of a registered user
+{
+    "amount": 500,
+    "receiver": "720a4666-deb9-4ef1-b990-5d893e22cf53"
+}
+
+# login, copy token and paste into the authorization bearer token
+# send POST request on /api/transactions/withdraw using the below model to withdraw money
+{
+    "amount": 500
+}
+
+# login, copy token and paste into the authorization bearer token
+# send GET request on /api/transactions using the below model to view history
 ```
 
 ## Author
