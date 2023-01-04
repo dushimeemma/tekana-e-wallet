@@ -38,3 +38,6 @@ lerna-debug.log*
 .env.dev
 .env.prod
 .env.test
+
+# DOCKER ENVIRONMENT VARIABLES
+docker.env
