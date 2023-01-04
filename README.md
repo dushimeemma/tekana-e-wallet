@@ -33,7 +33,7 @@ $ yarn start | $ npm run start | $ pnpm run start
 $ yarn start:dev | $ npm run start | $ pnpm run start
 
 # production
-$ yarn start:dev | $ npm run start:dev | $ pnpm run start:dev
+$ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 ```
 
 ## Endpoints & Models
