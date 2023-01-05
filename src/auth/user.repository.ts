@@ -10,6 +10,7 @@ import { AuthDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WalletsRepository } from '../wallets/wallets.repository';
 import { CompleteProfileDto } from '../users/dto/profile.dto';
+import { GetUserDto } from '../users/dto/get-users-dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -66,5 +67,30 @@ export class UserRepository extends Repository<User> {
     await this.save(user);
     delete user.password;
     return user;
+  }
+  /**
+   * Getting all users
+   * By Filtering
+   * Or without filtering
+   */
+  async getAllUsers(getUserDto: GetUserDto): Promise<User[]> {
+    const { search } = getUserDto;
+    const query = await this.createQueryBuilder('user');
+    query.select([
+      'user.id',
+      'user.name',
+      'user.phone',
+      'user.email',
+      'user.city',
+      'user.address',
+      'user.country',
+    ]);
+    if (search) {
+      query.where('LOWER(user.name) LIKE LOWER(:search) ', {
+        search: `%${search}%`,
+      });
+    }
+    const users = await query.getMany();
+    return users;
   }
 }
