@@ -21,6 +21,21 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ nullable: true })
+  name: string;
+
+  @Column({ nullable: true })
+  phone: string;
+
+  @Column({ nullable: true })
+  country: string;
+
+  @Column({ nullable: true })
+  city: string;
+
+  @Column({ nullable: true })
+  address: string;
+
   @CreateDateColumn()
   created_at: Date;
 

@@ -9,6 +9,7 @@ import {
 import { AuthDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WalletsRepository } from '../wallets/wallets.repository';
+import { CompleteProfileDto } from '../users/dto/profile.dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -19,6 +20,7 @@ export class UserRepository extends Repository<User> {
   ) {
     super(User, dataSource.createEntityManager());
   }
+
   async createUser(authDto: AuthDto): Promise<User> {
     const { email, password } = authDto;
     const salt = await bcrypt.genSalt(10);
@@ -49,5 +51,20 @@ export class UserRepository extends Repository<User> {
     // removing user password before return statement
     delete createdUser.password;
     return createdUser;
+  }
+
+  async completeProfile(
+    user: User,
+    completeProfileDto: CompleteProfileDto,
+  ): Promise<User> {
+    const { name, country, phone, city, address } = completeProfileDto;
+    user.name = name;
+    user.country = country;
+    user.address = address;
+    user.phone = phone;
+    user.city = city;
+    await this.save(user);
+    delete user.password;
+    return user;
   }
 }
