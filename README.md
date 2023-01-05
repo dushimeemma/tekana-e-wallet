@@ -78,6 +78,7 @@ $ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 
 # login, copy token and paste into the authorization bearer token
 # send GET request on /api/users to get the list of all users
+# send GET request on /api/users?search:name to get the list of all users by filtering
 
 # login, copy token and paste into the authorization bearer token
 # send PATCH request on /api/users/profile to update profile using the below model
