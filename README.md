@@ -78,6 +78,18 @@ $ yarn start:prod | $ npm run start:prod | $ pnpm run start:prod
 
 # login, copy token and paste into the authorization bearer token
 # send GET request on /api/users to get the list of all users
+# send GET request on /api/users?search:name to get the list of all users by filtering
+
+# login, copy token and paste into the authorization bearer token
+# send PATCH request on /api/users/profile to update profile using the below model
+{
+    "name": "Your FullNames",
+    "phone": "Your PhoneNumber",
+    "country": "Your Country",
+    "city": "Your City",
+    "address": "Your Address"
+}
+# Note: You can provide all the above information or one of them
 
 # login, copy token and paste into the authorization bearer token
 # send POST request on /api/transactions/send-money using the below model to send money

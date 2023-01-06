@@ -9,6 +9,8 @@ import {
 import { AuthDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { WalletsRepository } from '../wallets/wallets.repository';
+import { CompleteProfileDto } from '../users/dto/profile.dto';
+import { GetUserDto } from '../users/dto/get-users-dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -19,6 +21,7 @@ export class UserRepository extends Repository<User> {
   ) {
     super(User, dataSource.createEntityManager());
   }
+
   async createUser(authDto: AuthDto): Promise<User> {
     const { email, password } = authDto;
     const salt = await bcrypt.genSalt(10);
@@ -49,5 +52,45 @@ export class UserRepository extends Repository<User> {
     // removing user password before return statement
     delete createdUser.password;
     return createdUser;
+  }
+
+  async completeProfile(
+    user: User,
+    completeProfileDto: CompleteProfileDto,
+  ): Promise<User> {
+    const { name, country, phone, city, address } = completeProfileDto;
+    user.name = name;
+    user.country = country;
+    user.address = address;
+    user.phone = phone;
+    user.city = city;
+    await this.save(user);
+    delete user.password;
+    return user;
+  }
+  /**
+   * Getting all users
+   * By Filtering
+   * Or without filtering
+   */
+  async getAllUsers(getUserDto: GetUserDto): Promise<User[]> {
+    const { search } = getUserDto;
+    const query = await this.createQueryBuilder('user');
+    query.select([
+      'user.id',
+      'user.name',
+      'user.phone',
+      'user.email',
+      'user.city',
+      'user.address',
+      'user.country',
+    ]);
+    if (search) {
+      query.where('LOWER(user.name) LIKE LOWER(:search) ', {
+        search: `%${search}%`,
+      });
+    }
+    const users = await query.getMany();
+    return users;
   }
 }
